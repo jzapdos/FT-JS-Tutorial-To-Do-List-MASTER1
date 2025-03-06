@@ -1,3 +1,5 @@
+const clear = document.querySelector(".clear");
+const dataElement = document.getElementById("date");
 const list = document.getElementById("list");
 
 function addToDo( toDo ){
@@ -22,4 +24,3 @@ document.addEventListener("keyup",function(event){
                 input.value = "";
             }
     });       
-    
