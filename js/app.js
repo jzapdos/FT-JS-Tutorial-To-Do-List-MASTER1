@@ -45,27 +45,14 @@ document.addEventListener("keyup",function(event){
             }
     });       
 
-    let LIST = [];
-    let id = 0;
-    LIST = [{}, {}, _ ];
-
-    LIST[0] -->
-
-    {
-        name:"Drink Coffee",
-        id:0,
-        done: false,
-        trash:false
+    function completeToDo(element){
+        element.classList.toggle(CHECK);
+        element.classList.toggle(UNCHECK);
+        element.parentNode.querySelector(".text").classList.toggle(LINE_THROUGH);
+        LIST[element.id].done = LIST[element.id].done ? false :true 
     }
 
-    
-    LIST[0] -->
-
-    {
-        name:"Workout",
-        id:1,
-        done: true,
-        trash:false
+    function removeToDo(element){
+        element.parentNode.removeChild(element.parentNode);
+        LIST[element.id].trash = true;
     }
-
-    
