@@ -1,5 +1,5 @@
 const clear = document.querySelector(".clear");
-const dateElement = document.getElementById("date"); // Fixed typo
+const dateElement = document.getElementById("date");
 const list = document.getElementById("list");
 const input = document.getElementById("input");
 
@@ -20,6 +20,22 @@ if(data){
     id = 0;
 }
 
+function loadList(array){
+    array.forEach(function(item){
+        addToDo(item.name, item.id, item.done, item.trash);
+        if (item.done) {
+            document.getElementById(item.id)?.classList.add(CHECK);
+            document.getElementById(item.id)?.classList.remove(UNCHECK);
+        }
+    });
+}
+
+
+clear.addEventListener("click", function(){
+    localStorage.clear();
+    location.reload();
+})
+
 const options = { weekday: "long", month: "short", day: "numeric" };
 const today = new Date();
 
@@ -35,10 +51,11 @@ function addToDo(toDo, id, done, trash) {
   const LINE = done ? LINE_THROUGH : "";
 
   const text = `<li class="item">
-                  <i class="fa ${DONE} complete" job="complete" id="${id}"></i>
-                  <p class="text ${LINE}">${toDo}</p>
-                  <i class="de fa fa-trash-o" job="delete"></i>
-                </li>`;
+  <i class="fa ${DONE} complete" job="complete" id="${id}"></i>
+  <p class="text ${LINE}">${toDo}</p>
+  <i class="de fa fa-trash-o" job="delete" id="${id}"></i>
+</li>`;
+
 
   const position = "beforeend";
   list.insertAdjacentHTML(position, text); 
@@ -67,7 +84,8 @@ function completeToDo(element) {
   element.classList.toggle(UNCHECK);
   element.parentNode.querySelector(".text").classList.toggle(LINE_THROUGH);
 
-  LIST[element.id].done = !LIST[element.id].done;
+  LIST[Number(element.id)].done = !LIST[Number(element.id)].done;
+
 }
 
 function removeToDo(element) {
